@@ -204,6 +204,9 @@ font pango:DejaVu Sans Mono 8
 separator_symbol / 
 }
 
+exec feh --bg-scale ~/Pictures/Wallpapers/leaves.jpg
+exec compton -b
+
 bindsym Print exec scrot '%Y-%m-%d_$wx$h_scrot.png' -e 'mv $f ~/Pictures/Screenshots/'
 
 #⁞
