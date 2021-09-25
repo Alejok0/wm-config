@@ -188,7 +188,6 @@ bar {
 status_command i3status
 position top
 output primary
-tray_output none
 font pango:DejaVu Sans Mono 8
 separator_symbol / 
 }
