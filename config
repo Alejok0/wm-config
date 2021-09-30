@@ -17,12 +17,12 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec xfce4-terminal
+bindsym $mod+Return exec terminator
 
 # kill focused window
 bindsym $mod+Shift+q kill
 
-bindsym $mod+d exec i3-dmenu-desktop
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
 bindsym $mod+h focus left
@@ -61,16 +61,16 @@ bindsym $mod+a focus parent
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 " : I"
-set $ws2 " : II"
-set $ws3 " : III"
-set $ws4 " : IV"
-set $ws5 " : V"
-set $ws6 " : VI"
-set $ws7 " : VII"
-set $ws8 " : VIII"
-set $ws9 " : IX"
-set $ws10 " : X"
+set $ws1 "01 "
+set $ws2 "02 "
+set $ws3 "03 "
+set $ws4 "04 "
+set $ws5 "05 "
+set $ws6 "06 "
+set $ws7 "07 "
+set $ws8 "08 "
+set $ws9 "09 "
+set $ws10 "10 "
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -100,33 +100,12 @@ bindsym Mod1+Tab workspace next
 bindsym Mod1+Shift+Tab workspace prev
 bindsym $mod+Tab workspace back_and_forth
 
-# Assign application to start on a specific workspace
-# you can find the class with the program xprop
-# Workspace 2 
-assign [class="Pcmanfm"] $ws2
-
-# Workspace 3 
-assign [class="Google-chrome"] $ws3
-for_window [class="google-chrome"] move to workspace $ws4
-
-# Workspace 4 
-assign [class="Discord"] $ws4
-for_window [class="discord"] move to workspace $ws4
-
-# Workspace 5  
-assign [class="MS Teams"] $ws5
-for_window [class="teams"] move to workspace $ws5
-
-# Workspace 10 
-assign [class="Spotify|spotify"] $ws10
-for_window [class="Spotify"] move to workspace $ws10
-
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+#bindsym $mod+Shift+q exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -148,27 +127,23 @@ bindsym $mod+r mode "resize"
 
 #i3 gaps
 gaps inner 10
-gaps outer 15
+gaps outer 10
 smart_gaps on
 
 for_window [class="^.*"] border pixel
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-set $bg-color            #2f343f
-set $inactive-bg-color   #2f343f
-set $text-color          #f3f4f5
-set $inactive-text-color #676e7d
-set $urgent-bg-color     #e53935
-set $indicator-color     #a0a0a0
+set $session " (L)ock     (E)xit     (R)eboot     (P)oweroff"
+mode  $session {
+  bindsym e exec --no-startup-id $psst i3-msg exit; mode "default"
+    bindsym l exec --no-startup-id $psst i3lock -c '#31363B' -o '#191d0f' -w '#572020' -l '#ffffff' -e;mode "default"
+    bindsym p exec --no-startup-id $psst systemctl poweroff; mode "default"
+    bindsym r exec --no-startup-id $psst systemctl reboot; mode "default"
 
-# set window colors
-#                       border             background         text                 indicator
-client.focused          $bg-color          $bg-color          $text-color          $indicator-color
-client.unfocused        $inactive-bg-color $inactive-bg-color $inactive-text-color $indicator-color
-client.focused_inactive $inactive-bg-color $inactive-bg-color $inactive-text-color $indicator-color
-client.urgent           $urgent-bg-color   $urgent-bg-color   $text-color          $indicator-color
-
+    bindsym q mode "default"
+    bindsym Escape mode "default"
+}
+ 
+bindsym $mod+Shift+e mode $session
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -177,11 +152,22 @@ height 20
 status_command i3blocks
 position top
 output primary
-font pango:DejaVu Sans Mono 9
-separator_symbol / 
+font pango:DejaVu Sans Mono bold 9
+separator_symbol 
+
+colors {
+        background #333333
+        statusline #ffffff
+
+        focused_workspace  #ffffff #285577
+        active_workspace   #ffffff #333333
+        inactive_workspace #888888 #222222
+        urgent_workspace   #ffffff #900000
+    }
+
 }
 
-exec feh --bg-scale ~/Pictures/Wallpapers/leaves.jpg
+exec feh --bg-scale ~/Pictures/Wallpapers/dogo.jpg
 exec compton -b
 bindsym Print exec scrot '%Y-%m-%d_$wx$h_scrot.png' -e 'mv $f ~/Pictures/Screenshots/'
 
