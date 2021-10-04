@@ -127,10 +127,13 @@ bindsym $mod+r mode "resize"
 
 #i3 gaps
 gaps inner 10
-gaps outer 10
+gaps outer 5
 smart_gaps on
 
-for_window [class="^.*"] border pixel
+for_window [class="^.*"] border pixel 3
+
+# class                 border  backgr. text    indicator child_border
+client.focused          #ba9692 #ba9692 #2e9ef4 #E60026   
 
 set $session " (L)ock     (E)xit     (R)eboot     (P)oweroff"
 mode  $session {
@@ -151,24 +154,24 @@ bar {
 height 20
 status_command i3blocks
 position top
-output primary
 font pango:DejaVu Sans Mono bold 9
 separator_symbol 
 
 colors {
-        background #333333
-        statusline #ffffff
+        background #4a494e
+        statusline #ecf3f2
 
-        focused_workspace  #ffffff #285577
-        active_workspace   #ffffff #333333
-        inactive_workspace #888888 #222222
-        urgent_workspace   #ffffff #900000
+        focused_workspace  #ecf3f2 #8a7f71
+        active_workspace   #ecf3f2 #8a7f71
+        inactive_workspace #bcb6be #F4E4C0
+        urgent_workspace   #ffffff #ba9692
     }
 
 }
 
-exec feh --bg-scale ~/Pictures/Wallpapers/dogo.jpg
+exec feh --bg-scale ~/Pictures/Wallpapers/bruh.png
 exec compton -b
+exec xfce4-power-manager 
 bindsym Print exec scrot '%Y-%m-%d_$wx$h_scrot.png' -e 'mv $f ~/Pictures/Screenshots/'
 
 #⁞
