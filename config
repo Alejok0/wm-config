@@ -182,5 +182,6 @@ colors {
 
 exec feh --bg-scale ~/Pictures/Wallpapers/bruh.png
 exec compton -b
-exec xfce4-power-manager 
+exec xfce4-power-manager
+exec --no-startup-id blueman-applet
 bindsym Print exec scrot '%Y-%m-%d_$wx$h_scrot.png' -e 'mv $f ~/Pictures/Screenshots/'
