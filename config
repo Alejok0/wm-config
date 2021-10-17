@@ -25,17 +25,14 @@ floating_modifier $mod
 # start a terminal
 bindsym $mod+Return exec terminator
 
-# start web browser
-bindsym $mod+b exec google-chrome
-
 # kill focused window
 bindsym $mod+Shift+q kill
 
 #start rofi
-bindsym $mod+d exec rofi -show run -opacity "80" -columns 2
+bindsym $mod+x exec rofi -show run -opacity "80" -columns 2
 
 # start dmenu
-bindsym $mod+x exec dmenu_run -nb "#060D18" -nf "#94A7AE" -sb "#94A7AE" -sf "#4F5966" 
+bindsym $mod+d exec i3-dmenu-desktop
 
 # change focus
 bindsym $mod+h focus left
