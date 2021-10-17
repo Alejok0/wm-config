@@ -1,3 +1,9 @@
+#Color palette
+#060D18
+#4F5966
+#94A7AE
+#C6CACF
+
 set $mod Mod4
 
 font pango:monospace 8
@@ -19,10 +25,17 @@ floating_modifier $mod
 # start a terminal
 bindsym $mod+Return exec terminator
 
+# start web browser
+bindsym $mod+b exec google-chrome
+
 # kill focused window
 bindsym $mod+Shift+q kill
 
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+#start rofi
+bindsym $mod+d exec rofi -show run -opacity "80" -columns 2
+
+# start dmenu
+bindsym $mod+x exec dmenu_run -nb "#060D18" -nf "#94A7AE" -sb "#94A7AE" -sf "#4F5966" 
 
 # change focus
 bindsym $mod+h focus left
@@ -37,7 +50,7 @@ bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
 # split in horizontal orientation
-bindsym $mod+b split h
+bindsym $mod+c split h
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -61,16 +74,16 @@ bindsym $mod+a focus parent
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "01 "
-set $ws2 "02 "
-set $ws3 "03 "
-set $ws4 "04 "
-set $ws5 "05 "
-set $ws6 "06 "
-set $ws7 "07 "
-set $ws8 "08 "
-set $ws9 "09 "
-set $ws10 "10 "
+set $ws1 "01 "
+set $ws2 "02 "
+set $ws3 "03 "
+set $ws4 "04 "
+set $ws5 "05 "
+set $ws6 "06 "
+set $ws7 "07 "
+set $ws8 "08 "
+set $ws9 "09 "
+set $ws10 "10 "
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -132,8 +145,9 @@ smart_gaps on
 
 for_window [class="^.*"] border pixel 3
 
+#Borders
 # class                 border  backgr. text    indicator child_border
-client.focused          #ba9692 #ba9692 #2e9ef4 #E60026   
+client.focused          #94A7AE #94A7AE #C6CACF #060D18
 
 set $session " (L)ock     (E)xit     (R)eboot     (P)oweroff"
 mode  $session {
@@ -158,13 +172,13 @@ font pango:DejaVu Sans Mono bold 9
 separator_symbol 
 
 colors {
-        background #4a494e
+        background #060D18
         statusline #ecf3f2
 
-        focused_workspace  #ecf3f2 #8a7f71
-        active_workspace   #ecf3f2 #8a7f71
-        inactive_workspace #bcb6be #F4E4C0
-        urgent_workspace   #ffffff #ba9692
+        focused_workspace  #4F5966 #C6CACF
+        active_workspace   #4F5966 #C6CACF
+        inactive_workspace #94A7AE #4F5966
+        urgent_workspace   #ffffff #94A7AE
     }
 
 }
@@ -173,7 +187,3 @@ exec feh --bg-scale ~/Pictures/Wallpapers/bruh.png
 exec compton -b
 exec xfce4-power-manager 
 bindsym Print exec scrot '%Y-%m-%d_$wx$h_scrot.png' -e 'mv $f ~/Pictures/Screenshots/'
-
-#⁞
-#Basado en la configuracion de:
-#https://elblogdelazaro.org/posts/2019-01-10-mi-configuracion-i3/
