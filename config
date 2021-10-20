@@ -73,7 +73,7 @@ bindsym $mod+a focus parent
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 "01 "
 set $ws2 "02 "
-set $ws3 "03 "
+set $ws3 "03 "
 set $ws4 "04 "
 set $ws5 "05 "
 set $ws6 "06 "
@@ -114,8 +114,15 @@ bindsym $mod+Tab workspace back_and_forth
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
-# exit i3 (logs you out of your X session)
-#bindsym $mod+Shift+q exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+#i3 gaps
+gaps inner 10
+gaps outer 5
+smart_gaps on
+
+for_window [class="^.*"] border pixel 3
+
+bindsym $mod+r mode "resize"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -133,14 +140,42 @@ mode "resize" {
     bindsym $mod+r mode "default"
 }
 
-bindsym $mod+r mode "resize"
+set $mode_gaps Gaps: (O)uter, (I)nner
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+bindsym $mod+Shift+g mode "$mode_gaps"
 
-#i3 gaps
-gaps inner 10
-gaps outer 5
-smart_gaps on
+mode "$mode_gaps" {
+        bindsym o      mode "$mode_gaps_outer"
+        bindsym i      mode "$mode_gaps_inner"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
 
-for_window [class="^.*"] border pixel 3
+mode "$mode_gaps_inner" {
+        bindsym plus  gaps inner current plus 5
+        bindsym minus gaps inner current minus 5
+        bindsym 0     gaps inner current set 0
+
+        bindsym Shift+plus  gaps inner all plus 5
+        bindsym Shift+minus gaps inner all minus 5
+        bindsym Shift+0     gaps inner all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_outer" {
+        bindsym plus  gaps outer current plus 5
+        bindsym minus gaps outer current minus 5
+        bindsym 0     gaps outer current set 0
+
+        bindsym Shift+plus  gaps outer all plus 5
+        bindsym Shift+minus gaps outer all minus 5
+        bindsym Shift+0     gaps outer all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
 
 #Borders
 # class                 border  backgr. text    indicator child_border
@@ -166,7 +201,6 @@ height 20
 status_command i3blocks
 position top
 font pango:DejaVu Sans Mono bold 9
-separator_symbol 
 
 colors {
         background #060D18
@@ -180,8 +214,8 @@ colors {
 
 }
 
-exec feh --bg-scale ~/Pictures/Wallpapers/bruh.png
+exec feh --bg-scale ~/Pictures/Wallpapers/nord-drawing.jpg
 exec compton -b
-exec xfce4-power-manager
+exec xfce4-power-manager 
 exec --no-startup-id blueman-applet
 bindsym Print exec scrot '%Y-%m-%d_$wx$h_scrot.png' -e 'mv $f ~/Pictures/Screenshots/'
