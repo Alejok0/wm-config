@@ -74,13 +74,13 @@ bindsym $mod+a focus parent
 set $ws1 "01 "
 set $ws2 "02 "
 set $ws3 "03 "
-set $ws4 "04 "
-set $ws5 "05 "
+set $ws4 "04 "
+set $ws5 "05 "
 set $ws6 "06 "
-set $ws7 "07 "
-set $ws8 "08 "
+set $ws7 "07 "
+set $ws8 "08 "
 set $ws9 "09 "
-set $ws10 "10 "
+set $ws10 "10 "
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -116,11 +116,10 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
 #i3 gaps
-gaps inner 10
+gaps inner 8
 gaps outer 5
-smart_gaps on
 
-for_window [class="^.*"] border pixel 3
+for_window [class="^.*"] border pixel 2
 
 bindsym $mod+r mode "resize"
 
@@ -214,6 +213,7 @@ colors {
 
 }
 
+exec setxkbmap us -variant intl
 exec feh --bg-scale ~/Pictures/Wallpapers/nord-drawing.jpg
 exec compton -b
 exec xfce4-power-manager 
