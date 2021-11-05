@@ -202,7 +202,7 @@ position top
 font pango:DejaVu Sans Mono bold 9
 
 colors {
-        background #060D18
+        background #24363E
         statusline #ecf3f2
 
         focused_workspace  #4F5966 #C6CACF
