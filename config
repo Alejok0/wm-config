@@ -214,7 +214,7 @@ colors {
 }
 
 exec setxkbmap us -variant intl
-exec feh --bg-scale ~/Pictures/Wallpapers/nord-drawing.jpg
+exec feh --bg-scale ~/Pictures/Wallpapers/Hallway.jpg
 exec compton -b
 exec xfce4-power-manager 
 exec --no-startup-id blueman-applet
