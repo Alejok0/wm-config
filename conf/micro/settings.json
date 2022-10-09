@@ -1,0 +1,24 @@
+{
+    "*.lua": {
+        "colorcolumn": 45,
+        "tabstospaces": true
+    },
+    "*.py": {
+        "tabstospaces": true
+    },
+    "colorcolumn": 80,
+    "colorscheme": "gruvbox",
+    "indentchar": "|",
+    "keepautoindent": true,
+    "relativeruler": true,
+    "savecursor": true,
+    "saveundo": true,
+    "scrollbar": true,
+    "scrollmargin": 5,
+    "scrollspeed": 3,
+    "softwrap": true,
+    "statusformatl": " $(filename) $(modified)\u003e $(status.size)  \u003e ft:$(opt:filetype) \u003e",
+    "statusformatr": "\u003c lin:$(line) of $(status.lines) \u003c col:$(col) ",
+    "tabsize": 2,
+    "wordwrap": true
+}
