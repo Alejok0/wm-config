@@ -9,21 +9,30 @@ set $mod Mod4
 font pango:monospace 8
 
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
-
 exec --no-startup-id nm-applet
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2% && $refresh_i3status
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -2% && $refresh_i3status
+
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+# Music song controls
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioPause exec playerctl play-pause
+bindsym XF86AudioStop exec playerctl stop
+
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec mate-terminal
+bindsym $mod+Return exec xfce4-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -73,8 +82,8 @@ bindsym $mod+a focus parent
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 "01 "
 set $ws2 "02 "
-set $ws3 "03 "
-set $ws4 "04 "
+set $ws3 "03 "
+set $ws4 "04 "
 set $ws5 "05 "
 set $ws6 "06 "
 set $ws7 "07 "
@@ -83,9 +92,10 @@ set $ws9 "09 "
 set $ws10 "10 "
 
 assign [class="Firefox-esr"] $ws2
-assign [class="Apache NetBeans IDE 15"] $ws3
-assign [class="Code"] $ws3
-for_window [class="Spotify"] move to workspace $ws4
+assign [class="Apache NetBeans IDE 16"] $ws4
+assign [class="Sublime_text"] $ws4
+assign [class="Code"] $ws4
+for_window [class="Spotify"] move to workspace $ws3
 assign [class="discord"] $ws5
 
 # switch to workspace
@@ -118,14 +128,14 @@ bindsym $mod+Tab workspace back_and_forth
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
+
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 
-#i3 gaps
+#----------------[i3 gaps rounded ]-------------
 gaps inner 8
 gaps outer 5
-
-border_radius 2
+border_radius 3
 
 for_window [class="^.*"] border pixel 2
 
@@ -188,9 +198,10 @@ mode "$mode_gaps_outer" {
 # class                 border  backgr. text    indicator child_border
 client.focused          #94A7AE #94A7AE #C6CACF #060D18
 
-set $session " (L)ock    (S)uspend     (E)xit     (R)eboot     (P)oweroff"
+#--------[ Sessons ]--------
+set $session " (L)ock    (S)uspend     (E)xit     (R)eboot     (P)oweroff"
 mode  $session {
-  bindsym e exec --no-startup-id $psst i3-msg exit; mode "default"
+    bindsym e exec --no-startup-id $psst i3-msg exit; mode "default"
     bindsym l exec --no-startup-id $psst i3lock -c '#31363B' -o '#191d0f' -w '#572020' -l '#ffffff' -e;mode "default"
     bindsym p exec --no-startup-id $psst systemctl poweroff; mode "default"
     bindsym r exec --no-startup-id $psst systemctl reboot; mode "default"
@@ -201,6 +212,21 @@ mode  $session {
 }
  
 bindsym $mod+Shift+e mode $session
+
+#--------[ Monitor ]---------
+set $monitor " (V)GA     (H)DMI     (E)xit"
+
+mode $monitor{
+	bindsym v exec xrandr --output DP-1 --auto; mode "default" 
+	bindsym h exec xrandr --output HDMI-2 --mode 1360x768 --pos 0x0; mode "default"
+	
+	bindsym e exec xrandr --output HDMI-1 --off --output HDMI-2 --off --output DP-1 --off; mode "default"
+
+	bindsym q mode "default"
+	bindsym Escape mode "default"
+}
+
+bindsym $mod+p mode $monitor
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -222,11 +248,17 @@ colors {
 
 }
 
-exec setxkbmap us -variant intl
+#------------[ Init ]------------
+#exec setxkbmap us -variant intl
+
+# Disable tap while typing
+exec syndaemon -i 0.3 -t -K -R
+
 exec feh --bg-scale ~/Pictures/Wallpapers/Hallway.jpg
 exec picom -b
 exec xfce4-power-manager 
 exec megasync
+
 exec --no-startup-id blueman-applet
 exec --no-startup-id nm-tray
 bindsym Print exec scrot '%Y-%m-%d_$wx$h_scrot.png' -e 'mv $f ~/Pictures/Screenshots/'
