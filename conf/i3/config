@@ -27,6 +27,8 @@ bindsym XF86AudioStop exec playerctl stop
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
+#Disable touchpad
+bindsym XF86TouchpadToggle exec ~/.config/i3/touchpad.sh
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
