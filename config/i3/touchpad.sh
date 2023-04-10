@@ -7,8 +7,8 @@ STATE=`xinput list-props $ID|grep 'Device Enabled'|awk '{print $4}'`
 if [ $STATE -eq 1 ]
 then
     xinput disable $ID
-    notify-send 'Touchpad DISABLED'
+    dunstify -h string:x-dunst-stack-tag:test 'Touchpad DISABLED'
 else
     xinput enable $ID
-    notify-send 'Touchpad ENABLED'
+    dunstify -h string:x-dunst-stack-tag:test 'Touchpad ENABLED'
 fi
