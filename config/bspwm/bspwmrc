@@ -1,0 +1,34 @@
+#! /bin/sh
+
+feh --bg-scale 
+compton &
+~/images/Wallpapers/clay-banks-u27Rrbs9Dwc-unsplash.jpg
+sxhkd &
+polybar my_bar -c ~/.config/polybar/config.ini &
+#xinput set-prop "FTE1200:00 0B05:0201 Touchpad" "libinput Tapping Enabled" 1 &
+blueman-applet &
+xfce4-power-manager &
+nm-applet &
+xsetroot -cursor_name left_ptr &
+
+xrandr --output HDMI-2 --auto --right-of eDP-1 &
+
+
+bspc monitor eDP-1 -d "Term " "Inte " "Code " "Musi " "Free "
+
+bspc config border_width         2
+bspc config window_gap          10
+
+bspc config split_ratio          2
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+
+bspc rule -a "firefox" desktop='^2'
+bspc rule -a "Firefox-esr" desktop='^2'
+
+bspc rule -a "jetbrains-studio"  desktop='^3'
+bspc rule -a "Code" desktop='^3'
+bspc rule -a "Godot" desktop='^3'
+bspc rule -a "sublime_text" desktop='^3'
+
+bspc rule -a "Spotify" desktop='^4'
